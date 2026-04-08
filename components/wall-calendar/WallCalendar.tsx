@@ -107,7 +107,7 @@ export default function WallCalendar() {
     <motion.main
       tabIndex={0}
       onKeyDown={onKeyboard}
-      className="mx-auto max-w-[1480px] p-4 text-white outline-none [\&_*\]:text-white sm:p-8"
+      className="mx-auto max-w-[1480px] p-4 text-white outline-none sm:p-8"
       initial="hidden"
       animate="visible"
       variants={{
