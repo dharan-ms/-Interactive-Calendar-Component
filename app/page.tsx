@@ -10,6 +10,8 @@ const ENTRY_KEY = "wall-calendar-entry";
 export default function Page() {
   const [entered, setEntered] = useState(false);
   const [hydrated, setHydrated] = useState(false);
+  const [videoFailed, setVideoFailed] = useState(false);
+  const videoSrc = process.env.NEXT_PUBLIC_BG_VIDEO_URL ?? "/videos/wall-calendar-bg.web.mp4";
 
   useEffect(() => {
     setEntered(localStorage.getItem(ENTRY_KEY) === "1");
@@ -34,14 +36,26 @@ export default function Page() {
     <div className="relative min-h-screen overflow-hidden">
       {entered ? (
         <>
-          <video
-            className="pointer-events-none fixed inset-0 -z-20 h-full w-full object-cover"
-            src="/videos/wall-calendar-bg.mp4"
-            autoPlay
-            muted
-            loop
-            playsInline
-          />
+          {!videoFailed ? (
+            <video
+              className="pointer-events-none fixed inset-0 -z-20 h-full w-full object-cover"
+              src={videoSrc}
+              autoPlay
+              muted
+              loop
+              playsInline
+              onError={() => setVideoFailed(true)}
+            />
+          ) : (
+            <Image
+              src="/images/landing-calendar.jpg"
+              alt="Background fallback"
+              fill
+              sizes="100vw"
+              className="pointer-events-none fixed inset-0 -z-20 h-full w-full object-cover"
+              priority
+            />
+          )}
           <div className="fixed inset-0 -z-10 bg-slate-950/62 backdrop-blur-[2px]" />
         </>
       ) : null}

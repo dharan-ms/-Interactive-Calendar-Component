@@ -2,3 +2,4 @@ node_modules
 .next
 .git
 public/videos/*.mp4
+!public/videos/wall-calendar-bg.web.mp4
